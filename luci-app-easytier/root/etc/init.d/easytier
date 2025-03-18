@@ -142,84 +142,6 @@ check_config() {
 	           procd_set_param command "$easytierbin"
                    procd_append_param command -c "$config_file"
 		   echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 运行 ${easytierbin} -c ${config_file}" >>/tmp/easytier.log
-			
-                   if [ ! -z "$udp_port" ] ; then
-		      echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_udp 放行UDP端口 ${udp_port} " >>/tmp/easytier.log
-                      uci -q delete firewall.easytier_udp
-		      uci set firewall.easytier_udp=rule
-		      uci set firewall.easytier_udp.name="easytier_udp"
-		      uci set firewall.easytier_udp.target="ACCEPT"
-		      uci set firewall.easytier_udp.src="wan"
-		      uci set firewall.easytier_udp.proto="all"
-		      uci set firewall.easytier_udp.dest_port="$udp_port"
-		      uci set firewall.easytier_udp.enabled="1"
-	           fi
-                   if [ ! -z "$wireguard_port" ] ; then
-		       echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_wireguard 放行UDP端口 ${wireguard_port} " >>/tmp/easytier.log
-                       uci -q delete firewall.easytier_wireguard
-		       uci set firewall.easytier_wireguard=rule
-		       uci set firewall.easytier_wireguard.name="easytier_wireguard"
-		       uci set firewall.easytier_wireguard.target="ACCEPT"
-		       uci set firewall.easytier_wireguard.src="wan"
-		       uci set firewall.easytier_wireguard.proto="udp"
-		       uci set firewall.easytier_wireguard.dest_port="$wireguard_port"
-		       uci set firewall.easytier_wireguard.enabled="1"
-	           fi
-                   if [ ! -z "$v6tcp_port" ] ; then
-		     echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_v6tcp 放行TCP端口 ${v6tcp_port} " >>/tmp/easytier.log
-                      uci -q delete firewall.easytier_v6tcp
-		      uci set firewall.easytier_v6tcp=rule
-		      uci set firewall.easytier_v6tcp.name="easytier_v6tcp"
-		      uci set firewall.easytier_v6tcp.target="ACCEPT"
-		      uci set firewall.easytier_v6tcp.src="wan"
-		      uci set firewall.easytier_v6tcp.proto="tcp"
-		      uci set firewall.easytier_v6tcp.dest_port="$v6tcp_port"
-		      uci set firewall.easytier_v6tcp.enabled="1"
-	           fi
-                   if [ ! -z "$v6udp_port" ] ; then
-		       echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_v6udp 放行UDP端口 ${v6udp_port} " >>/tmp/easytier.log
-                       uci -q delete firewall.easytier_v6udp
-		       uci set firewall.easytier_v6udp=rule
-		       uci set firewall.easytier_v6udp.name="easytier_v6udp"
-		       uci set firewall.easytier_v6udp.target="ACCEPT"
-		       uci set firewall.easytier_v6udp.src="wan"
-		       uci set firewall.easytier_v6udp.proto="udp"
-		       uci set firewall.easytier_v6udp.dest_port="$v6udp_port"
-		       uci set firewall.easytier_v6udp.enabled="1"
-	           fi
-                   if [ ! -z "$v6ws_port" ] ; then
-		      echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_v6ws 放行TCP端口 ${v6ws_port} " >>/tmp/easytier.log
-                      uci -q delete firewall.easytier_v6ws
-		      uci set firewall.easytier_v6ws=rule
-		      uci set firewall.easytier_v6ws.name="easytier_v6ws"
-		      uci set firewall.easytier_v6ws.target="ACCEPT"
-		      uci set firewall.easytier_v6ws.src="wan"
-		      uci set firewall.easytier_v6ws.proto="tcp"
-		      uci set firewall.easytier_v6ws.dest_port="$v6ws_port"
-		      uci set firewall.easytier_v6ws.enabled="1"
-	           fi
-                   if [ ! -z "$v6wss_port" ] ; then
-		       echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_v6wss 放行TCP端口 ${v6wss_port} " >>/tmp/easytier.log
-                       uci -q delete firewall.easytier_v6wss
-		       uci set firewall.easytier_v6wss=rule
-		       uci set firewall.easytier_v6wss.name="easytier_v6wss"
-		       uci set firewall.easytier_v6wss.target="ACCEPT"
-		       uci set firewall.easytier_v6wss.src="wan"
-		       uci set firewall.easytier_v6wss.proto="tcp"
-		       uci set firewall.easytier_v6wss.dest_port="$v6wss_port"
-		       uci set firewall.easytier_v6wss.enabled="1"
-	           fi
-                   if [ ! -z "$v6wg_port" ] ; then
-		      echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_v6wg 放行UDP端口 ${v6wg_port} " >>/tmp/easytier.log
-                      uci -q delete firewall.easytier_v6wg
-		      uci set firewall.easytier_v6wg=rule
-		      uci set firewall.easytier_v6wg.name="easytier_v6wg"
-		      uci set firewall.easytier_v6wg.target="ACCEPT"
-		      uci set firewall.easytier_v6wg.src="wan"
-		      uci set firewall.easytier_v6wg.proto="udp"
-		      uci set firewall.easytier_v6wg.dest_port="$v6wg_port"
-		      uci set firewall.easytier_v6wg.enabled="1"
-	           fi
 }
 
 get_etconfig() {
@@ -267,114 +189,6 @@ get_etconfig() {
 		bind_device="$(uci -q get easytier.@easytier[0].bind_device || echo 1)"
 		kcp_proxy="$(uci -q get easytier.@easytier[0].kcp_proxy || echo 0)"
 		kcp_input="$(uci -q get easytier.@easytier[0].kcp_input || echo 0)"
-}
-
-set_firewall() {
-		if [ "$listenermode" = "ON" ] || [ "$etcmd" = "web" ] ; then
-		if [ ! -z "$tcp_port" ] ; then
-		   echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_tcp_udp 放行端口 ${tcp_port} " >>/tmp/easytier.log
-                    uci -q delete firewall.easytier_tcp_udp
-		    uci set firewall.easytier_tcp_udp=rule
-		    uci set firewall.easytier_tcp_udp.name="easytier_tcp_udp"
-		    uci set firewall.easytier_tcp_udp.target="ACCEPT"
-		    uci set firewall.easytier_tcp_udp.src="wan"
-		    uci set firewall.easytier_tcp_udp.proto="all"
-		    uci set firewall.easytier_tcp_udp.dest_port="$tcp_port"
-		    uci set firewall.easytier_tcp_udp.enabled="1"
-		 fi
-                 if [ ! -z "$wss_port" ] ; then
-		   echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_wss 放行端口 ${wss_port} " >>/tmp/easytier.log
-		    uci -q delete firewall.easytier_wss
-		    uci set firewall.easytier_wss=rule
-		    uci set firewall.easytier_wss.name="easytier_wss"
-		    uci set firewall.easytier_wss.target="ACCEPT"
-		    uci set firewall.easytier_wss.src="wan"
-		    uci set firewall.easytier_wss.proto="all"
-		    uci set firewall.easytier_wss.dest_port="$wss_port"
-		    uci set firewall.easytier_wss.enabled="1"
-		 fi
-                   if [ ! -z "$ws_port" ] ; then
-		    echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_ws 放行端口 ${ws_port} " >>/tmp/easytier.log
-		    uci -q delete firewall.easytier_ws
-		    uci set firewall.easytier_ws=rule
-		    uci set firewall.easytier_ws.name="easytier_ws"
-		    uci set firewall.easytier_ws.target="ACCEPT"
-		    uci set firewall.easytier_ws.src="wan"
-		    uci set firewall.easytier_ws.proto="all"
-		    uci set firewall.easytier_ws.dest_port="$ws_port"
-		    uci set firewall.easytier_ws.enabled="1"
-		   fi
-                   if [ ! -z "$wg_port" ] ; then
-		    echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_wg 放行端口 ${wg_port} " >>/tmp/easytier.log
-		    uci -q delete firewall.easytier_wg
-		    uci set firewall.easytier_wg=rule
-		    uci set firewall.easytier_wg.name="easytier_wg"
-		    uci set firewall.easytier_wg.target="ACCEPT"
-		    uci set firewall.easytier_wg.src="wan"
-		    uci set firewall.easytier_wg.proto="all"
-		    uci set firewall.easytier_wg.dest_port="$wg_port"
-		    uci set firewall.easytier_wg.enabled="1"
-		   fi
-                fi
-		[ -z "$tunname" ] && tunname="tun0"
-                uci -q delete network.EasyTier >/dev/null 2>&1
-	        if [ -z "$(uci -q get network.EasyTier)" ];  then				
-			uci set network.EasyTier='interface'
-                       if [ -z "$ipaddr" ]; then
-				uci set network.EasyTier.proto='none'
-			else
-				uci set network.EasyTier.proto='static'
-				uci set network.EasyTier.ipaddr=$ipaddr
-				uci set network.EasyTier.netmask='255.0.0.0'
-			fi
-			echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加网络接口 EasyTier 绑定虚拟接口 ${tunname}" >>/tmp/easytier.log
-                       uci set network.EasyTier.device="$tunname"
-                       uci set network.EasyTier.ifname="$tunname"
-		fi
-		if [ -z "$(uci -q get firewall.easytierzone)" ];  then
-				echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则，放行网络接口 EasyTier 允许出入转发，开启IP动态伪装 MSS钳制" >>/tmp/easytier.log
-				uci set firewall.easytierzone='zone'
-				uci set firewall.easytierzone.input='ACCEPT'
-				uci set firewall.easytierzone.output='ACCEPT'
-				uci set firewall.easytierzone.forward='ACCEPT'
-				uci set firewall.easytierzone.masq='1'
-                                uci set firewall.easytierzone.mtu_fix='1'
-				uci set firewall.easytierzone.name='EasyTier'
-				uci set firewall.easytierzone.network='EasyTier'
-		fi
-		et_forward="$(uci -q get easytier.@easytier[0].et_forward)"
-		if [ "${et_forward//etfwlan/}" != "$et_forward" ]; then
-			echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 允许从虚拟网络 EasyTier 到局域网 lan 的流量" >>/tmp/easytier.log
-			uci set firewall.easytierfwlan=forwarding
-			uci set firewall.easytierfwlan.dest='lan'
-			uci set firewall.easytierfwlan.src='EasyTier'
-		else
-			uci -q delete firewall.easytierfwlan
-		fi
-		if [ "${et_forward//etfwwan/}" != "$et_forward" ]; then
-			echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 允许从虚拟网络 EasyTier 到广域网 wan 的流量" >>/tmp/easytier.log
-			uci set firewall.easytierfwwan=forwarding
-			uci set firewall.easytierfwwan.dest='wan'
-			uci set firewall.easytierfwwan.src='EasyTier'
-		else
-			uci -q delete firewall.easytierfwwan
-		fi
-                if [ "${et_forward//lanfwet/}" != "$et_forward" ]; then
-			echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 允许从局域网 lan 到虚拟网络 EasyTier 的流量" >>/tmp/easytier.log
-			uci set firewall.lanfweasytier=forwarding
-			uci set firewall.lanfweasytier.dest='EasyTier'
-			uci set firewall.lanfweasytier.src='lan'
-		else
-			uci -q delete firewall.lanfweasytier
-		fi
-                if [ "${et_forward//wanfwet/}" != "$et_forward" ]; then
-			echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 允许从广域网 wan 到虚拟网络 EasyTier 的流量" >>/tmp/easytier.log
-			uci set firewall.wanfweasytier=forwarding
-			uci set firewall.wanfweasytier.dest='EasyTier'
-			uci set firewall.wanfweasytier.src='wan'
-		else
-			uci -q delete firewall.wanfweasytier
-		fi
 }
 
 start_et() {
@@ -520,17 +334,6 @@ start_et() {
 		procd_set_param respawn
 		procd_close_instance
 		
-                if [ ! -z "$socks_port" ] ; then
-		    echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 添加防火墙规则 easytier_socks5 放行端口 ${socks_port} " >>/tmp/easytier.log
-		    uci -q delete firewall.easytier_socks5
-		    uci set firewall.easytier_socks5=rule
-		    uci set firewall.easytier_socks5.name="easytier_socks5"
-		    uci set firewall.easytier_socks5.target="ACCEPT"
-		    uci set firewall.easytier_socks5.src="wan"
-		    uci set firewall.easytier_socks5.proto="all"
-		    uci set firewall.easytier_socks5.dest_port="$socks_port"
-		    uci set firewall.easytier_socks5.enabled="1"
-                fi
                 if [ "$listenermode" = "ON" ] || [ "$etcmd" = "web" ] ; then
                   if [ -z "$tcp_port" ] && [ -z "$ws_port" ] && [ -z "$wss_port" ] && [ -z "$wg_port" ] ; then
                      tcp_port="11010"
@@ -538,11 +341,8 @@ start_et() {
                      wss_port="11012"
                      wg_port="11011"
                   fi
-                set_firewall  
 		fi
 		echo "$(date '+%Y-%m-%d %H:%M:%S') easytier : 重载防火墙和网络配置...会出现短暂断网现象... " >>/tmp/easytier.log
-                [ -n "$(uci changes network)" ] && uci commit network && /etc/init.d/network reload >/dev/null 2>&1
-		[ -n "$(uci changes firewall)" ] && uci commit firewall && /etc/init.d/firewall reload >/dev/null 2>&1
 		[ -z "$proxy_network" ] || sysctl -w net.ipv4.ip_forward=1 >/dev/null 2>&1
                 [ ! -z "$checkip" ] && check
                 echo `date +%s` > /tmp/easytier_time
@@ -606,26 +406,6 @@ stop_service() {
 		pgrep -f easytier_checklog | xargs kill -9 >/dev/null 2>&1
                 ps | grep 'easytier-core' | grep -v grep | awk '{print $1}' | xargs kill >/dev/null 2>&1
                 ps | grep 'easytier-core' | grep -v grep | awk '{print $1}' | xargs kill -9 >/dev/null 2>&1
-                uci -q delete network.EasyTier >/dev/null 2>&1
-                uci -q delete firewall.easytierzone >/dev/null 2>&1
-	        uci -q delete firewall.easytierfwlan >/dev/null 2>&1
-	        uci -q delete firewall.easytierfwwan >/dev/null 2>&1
-	        uci -q delete firewall.lanfweasytier >/dev/null 2>&1
-	        uci -q delete firewall.wanfweasytier >/dev/null 2>&1
-                uci -q delete firewall.easytier_udp >/dev/null 2>&1
-                uci -q delete firewall.easytier_tcp_udp >/dev/null 2>&1
-                uci -q delete firewall.easytier_wss >/dev/null 2>&1
-                uci -q delete firewall.easytier_ws >/dev/null 2>&1
-                uci -q delete firewall.easytier_wg >/dev/null 2>&1
-                uci -q delete firewall.easytier_wireguard >/dev/null 2>&1
-                uci -q delete firewall.easytier_socks5 >/dev/null 2>&1
-                uci -q delete firewall.easytier_v6tcp >/dev/null 2>&1
-                uci -q delete firewall.easytier_v6udp >/dev/null 2>&1
-                uci -q delete firewall.easytier_v6ws >/dev/null 2>&1
-                uci -q delete firewall.easytier_v6wss >/dev/null 2>&1
-                uci -q delete firewall.easytier_v6wg >/dev/null 2>&1
-                [ -n "$(uci changes network)" ] && uci commit network && /etc/init.d/network reload >/dev/null 2>&1
-	        [ -n "$(uci changes firewall)" ] && uci commit firewall && /etc/init.d/firewall reload >/dev/null 2>&1 
                 rm -rf /tmp/easytier-cli_peer /tmp/easytier-cli_connector /tmp/easytier-cli_stun /tmp/easytier-cli_route >/dev/null 2>&1
                 rm -rf /tmp/easytier-cli_peer-center /tmp/easytier-cli_vpn-portal /tmp/easytier_cmd /tmp/easytier-cli_node >/dev/null 2>&1
                 rm -rf /tmp/easytier-*.* /tmp/easytier.log >/dev/null 2>&1
